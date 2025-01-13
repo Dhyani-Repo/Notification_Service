@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ErrorResponse, SuccessResponse } from "../../../src/utils/response.utils";
 import { IApiCreds, IUser } from "./app.interface";
-import { createCreds, createTemplates, createUser, getApiData, getTemplateData, getTemplates, UpdateCreds, userLogin, userSignIn } from "./app.api";
+import { createCreds, createTemplates, createUser, getApiData, getApiTemplate, getTemplateData, getTemplates, UpdateCreds, userLogin, userSignIn } from "./app.api";
 import { AuthRequest } from "middleware/interface";
 
 export const create_creds = async (req: Request, res: Response) => {
@@ -93,6 +93,17 @@ export const test = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const data = await getTemplateData(Number(id)); 
+    return res.json({data}); 
+  } catch (error) {
+    console.error('Error fetching notification content:', error);
+    return res.status(500).send('An error occurred while fetching the content');
+  }
+}
+export const getApiTemplates = async (req: Request, res: Response) => {
+  const reqBody = req.body;
+  console.log("reqBody: ",reqBody)
+  try {
+    const data = await getApiTemplate(); 
     return res.json({data}); 
   } catch (error) {
     console.error('Error fetching notification content:', error);

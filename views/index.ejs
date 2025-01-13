@@ -10,35 +10,38 @@
 </head>
 
 <body>
- 
-    <nav>
-      <button id="toggle-nav" class="toggle-button">☰</button>
-      <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
+
+  <nav>
+    <button id="toggle-nav" class="toggle-button">☰</button>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
   <p id="hiddenData" hidden><%=baseUrl%></p>
-  <div class="table-container">
+  <div class="table-container" id="table_container" style="display: none;">
     <div class="table-box">
-      <select id="notification-service" onchange="fetchData()">
-        <option value="Sandgrid" selected>SandGrid</option>
-        <option value="Twilio">Twilio</option>
-       
+      <select id="notification-service">
+        <option value="twilio">twilio</option>
+        <option value="test">test</option>
+        <option value="test2">test2</option>
       </select>
     </div>
-    <div class="table-box" id="api-key-box" style="display: none;">
-      <h3>API Key</h3>
+    <div class="table-box">
+      <h4>API Key</h4>
       <p id="api-key"></p>
     </div>
-    <div class="table-box" id="api-secret-box" style="display: none;">
-      <h3>API Secret</h3>
+
+    <div class="table-box">
+      <h4>API Secret</h4>
       <p id="api-secret"></p>
     </div>
+
     <div class="table-box-edit">
-      <button id="editBtn" class="edit-button">Edit</button>
+      <button class="edit-button" id="editBtn">Edit</button>
+      <button class="edit-button" id="newBtn">New</button>
     </div>
   </div>
 
@@ -47,8 +50,8 @@
     <div class="box" id="box1">
       <h3>Email</h3>
       <p>Content for the first box goes here.</p>
-
-      <button onclick="changeContent('box1')">view</button>
+      <button onclick="changeContent('box1')">Templates</button>
+      <button id="templateViewer">Creds</button>
     </div>
     <div class="box" id="box2">
       <h3>SMS</h3>
@@ -61,6 +64,11 @@
       <button onclick="changeContent('box3')">view</button>
     </div>
     <div class="box" id="box4">
+      <h3>Box 4</h3>
+      <p>Content for the fourth box goes here.</p>
+      <button onclick="changeContent('box4')">view</button>
+    </div>
+    <div class="box" id="editBtn" style="display: none;">
       <h3>Box 4</h3>
       <p>Content for the fourth box goes here.</p>
       <button onclick="changeContent('box4')">view</button>

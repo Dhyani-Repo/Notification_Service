@@ -1,5 +1,113 @@
 // Base URL from hidden input
-const base_url = document.getElementById("hiddenData").innerText;
+
+document.getElementById("templateViewer").addEventListener("click", () => {
+    const table_container = document.getElementById("table_container");
+
+    // Toggle visibility of the container
+    if (table_container.style.display === "flex") {
+        table_container.style.display = "none";
+        return; // Stop further execution if hiding the data
+    }
+
+    // Fetch data and display it if container is not already visible
+    console.log("clicked");
+    fetch("/api/v1/getApiTemplates")
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Data: ", data);
+
+            const tableContainer = document.querySelector(".table-container");
+            tableContainer.innerHTML = ""; // Clear previous content
+            table_container.style.display = "flex"; // Show the container
+
+            if (data.data && data.data.length === 0) {
+                const template = `
+                    <h3>No Data Is Available for the APIs</h3>
+                    <button class="edit-button">Add APIs</button>
+                `;
+                tableContainer.innerHTML = template;
+            } else {
+                if (data.data && data.data.length > 0) {
+                    let optional1;
+                    // Create child-1
+                    const table_container_child1 = document.createElement("div");
+                    table_container_child1.classList.add("table-box");
+                    const selectElm = document.createElement("select");
+                    selectElm.id = "notification-service";
+                    selectElm.addEventListener("change", fetchData);
+
+                    data.data.forEach((itm) => {
+                        const optionElm = document.createElement("option");
+                        optionElm.value = itm.Api_Type;
+                        if (itm.Api_Type.toLowerCase() === "sandgrid") {
+                            optionElm.selected = true;
+                            optional1 = itm;
+                        }
+                        optionElm.innerText = itm.Api_Type;
+                        selectElm.appendChild(optionElm);
+                    });
+                    table_container_child1.appendChild(selectElm);
+
+                    // Create child-2
+                    const table_container_child2 = document.createElement("div");
+                    table_container_child2.classList.add("table-box");
+                    table_container_child2.id = "api-key-box";
+                    let optional2;
+                    const h4 = document.createElement("h4");
+                    data.data.forEach((itm) => {
+                        if (selectElm.value.toLowerCase() === itm.Api_Type.toLowerCase()) {
+                            optional2 = {
+                                Api_Key: itm.Api_Key,
+                                Api_Secret: itm.Api_Secret,
+                            };
+                        }
+                    });
+                    console.log("optional2:", optional2);
+                    h4.innerText = "API Key";
+                    const p1 = document.createElement("p");
+                    p1.id = "api-key";
+                    p1.innerText = optional1 ? optional1.Api_Key : optional2.Api_Key;
+                    table_container_child2.appendChild(h4);
+                    table_container_child2.appendChild(p1);
+
+                    // Create child-3
+                    const table_container_child3 = document.createElement("div");
+                    table_container_child3.classList.add("table-box");
+                    table_container_child3.id = "api-secret-box";
+                    const h42 = document.createElement("h4");
+                    h42.innerText = "API Secret";
+                    const p2 = document.createElement("p");
+                    p2.id = "api-secret";
+                    p2.innerText = optional1 ? optional1.Api_Secret : optional2.Api_Secret;
+                    table_container_child3.appendChild(h42);
+                    table_container_child3.appendChild(p2);
+
+                    // Create child-4
+                    const table_container_child4 = document.createElement("div");
+                    table_container_child4.classList.add("table-box-edit");
+                    const button_1 = document.createElement("button");
+                    button_1.classList.add("edit-button");
+                    button_1.id = "editBtn";
+                    button_1.innerText = "Edit";
+                    table_container_child4.appendChild(button_1);
+
+                    // Append children to container
+                    tableContainer.appendChild(table_container_child1);
+                    tableContainer.appendChild(table_container_child2);
+                    tableContainer.appendChild(table_container_child3);
+                    tableContainer.appendChild(table_container_child4);
+                }
+            }
+        })
+        .catch((err) => {
+            console.log("Error thrown is: ", err);
+            document.querySelector(".table-container").innerHTML = "<p>Failed to fetch data</p>";
+        });
+});
+
+
+
+const base_url = document.getElementById("hiddenData").innerText.trim();
 console.log("base_url", base_url);
 const template = document.getElementById("template-card")
 // Function to fetch API credentials
@@ -87,13 +195,13 @@ function changeContent(boxId) {
                         templateCardChild.classList.add('template-card-childs');
                         if(item.selected){
                             templateCardChild.innerHTML = `
-                            ${item.template}
+                            ${item.template}<br><br>
                             <button class="select-template">Selected</button>
                         `;
                         
                         }else{
                             templateCardChild.innerHTML = `
-                            ${item.template}
+                            ${item.template}<br><br>
                             <button class="select-template">Select</button>
                         `;
                         }

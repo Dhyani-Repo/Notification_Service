@@ -112,8 +112,15 @@ export const getApiData = async (type: String): Promise<any> => {
   }
   return data
 }
+export const getApiTemplate = async (): Promise<any> => {
+  const data = await prisma.app_api.findMany()
+  if (!data) {
+    throw new Error(`There is no data regarding the apis`)
+  }
+  return data
+}
 
-export const getTemplates = async (type: string): Promise<any> => {
+export const getTemplates = async (type: string): Promise<any> => { 
   console.log("🚀 ~ getTemplates ~ type:", type)
   const data1 = await prisma.app_api.findFirst({
     where: {
