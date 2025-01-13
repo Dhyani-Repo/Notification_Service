@@ -1,0 +1,16 @@
+version: "3"
+services:
+  backend:
+    container_name: notification-backend-service
+    build: .
+    ports:
+      - 1144:8000
+    command: sh -c "npx prisma generate"
+    restart: always
+    networks:
+      - common-network
+
+networks:
+  common-network:
+    external: true
+

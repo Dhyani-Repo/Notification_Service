@@ -1,0 +1,132 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fc;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form Styling */
+.form-container {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+form label {
+  font-size: 1rem;
+  color: #666;
+  display: block;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin: 0; 
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  outline: none;
+}
+
+form input:focus {
+  border-color: #4CAF50; 
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #122030; /* Updated Green Color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0f1a28; /* Slightly darker shade */
+}
+
+/* Buttons Container Styling */
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; 
+}
+
+.buttons-container a {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding: 12px 0; /* Adjust padding for consistent height */
+  background-color: #122030; /* Updated Green Color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  width: 100%; /* Ensures the same width as Sign-Up button */
+}
+
+.buttons-container a:hover {
+  background-color: #0f1a28; /* Slightly darker shade */
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .container {
+      width: 90%;
+  }
+
+  form input {
+      font-size: 0.9rem;
+  }
+
+  form button {
+      font-size: 0.9rem;
+  }
+
+  .buttons-container a {
+      font-size: 0.9rem;
+  }
+}

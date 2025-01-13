@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Notification Service</title>
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Notification Service</h1>
+    <div class="buttons-container">
+      <button id="loginbtn">Login</button>
+      <button id="signup-btn">Sign Up</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to handle login
+    async function redirectToLogin() {
+      await fetch('/api/v1/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({
+          username: 'exampleUser',
+          password: 'examplePassword'
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Login failed');
+        }
+        return response.json(); 
+      })
+      .then(data => {
+        console.log('Login successful:', data);
+        window.location.href = "/dashboard";  
+      })
+      .catch(error => {
+        console.error('Login failed:', error);
+        alert('Login failed. Please try again.');
+      });
+    }
+
+    // Function to handle sign-up
+    function redirectToSignup() {   
+      fetch('/api/v1/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({
+          username: 'newUser',
+          email: 'newuser@example.com',
+          password: 'newUserPassword123'
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Sign up failed');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Sign up successful:', data);
+        window.location.href = "/login";
+      })
+      .catch(error => {
+        console.error('Sign up failed:', error);
+        alert('Sign up failed. Please try again.');
+      });
+    }
+
+    document.getElementById('loginbtn').addEventListener('click', redirectToLogin);
+    document.getElementById('signup-btn').addEventListener('click', redirectToSignup);
+  </script>
+</body>
+</html>
+
+

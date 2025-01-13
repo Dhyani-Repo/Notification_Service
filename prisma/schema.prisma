@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+  seed = "./migration.ts"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model app_api {
+  id         Int                  @id @default(autoincrement())
+  Api_Type   String               @unique
+  Api_Key    String
+  Api_Secret String?
+  created_at DateTime?            @default(now())
+  updated_at DateTime?            @updatedAt
+  templates  app_emailTemplates[]
+}
+
+model app_user {
+  user_id    Int       @id @default(autoincrement())
+  Name       String
+  Password   String
+  Email      String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+model app_auth {
+  id         Int       @id @default(autoincrement())
+  domain     String    @unique
+  token      String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  appOtp     app_otp[]
+}
+
+model app_otp {
+  id         Int      @id @default(autoincrement())
+  client_id  String
+  otp        Int
+  created_at DateTime @default(now())
+  app_auth   app_auth @relation(fields: [client_id], references: [domain])
+}
+
+model app_emailTemplates {
+  id            Int      @id @default(autoincrement())
+  template      String   
+  selected      Boolean?   @default(false)
+  template_type Int 
+  app_type      app_api? @relation(fields: [template_type], references: [id])
+  isOrder       Boolean?
+}

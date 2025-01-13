@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>Notification Service</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+ 
+    <nav>
+      <button id="toggle-nav" class="toggle-button">☰</button>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  <p id="hiddenData" hidden><%=baseUrl%></p>
+  <div class="table-container">
+    <div class="table-box">
+      <select id="notification-service" onchange="fetchData()">
+        <option value="Sandgrid" selected>SandGrid</option>
+        <option value="Twilio">Twilio</option>
+       
+      </select>
+    </div>
+    <div class="table-box" id="api-key-box" style="display: none;">
+      <h3>API Key</h3>
+      <p id="api-key"></p>
+    </div>
+    <div class="table-box" id="api-secret-box" style="display: none;">
+      <h3>API Secret</h3>
+      <p id="api-secret"></p>
+    </div>
+    <div class="table-box-edit">
+      <button id="editBtn" class="edit-button">Edit</button>
+    </div>
+  </div>
+
+  <!-- Notification Boxes Section -->
+  <div class="notification-boxes">
+    <div class="box" id="box1">
+      <h3>Email</h3>
+      <p>Content for the first box goes here.</p>
+
+      <button onclick="changeContent('box1')">view</button>
+    </div>
+    <div class="box" id="box2">
+      <h3>SMS</h3>
+      <p>Content for the second box goes here.</p>
+      <button onclick="changeContent('box2')">view</button>
+    </div>
+    <div class="box" id="box3">
+      <h3>Whatsapp</h3>
+      <p>Content for the third box goes here.</p>
+      <button onclick="changeContent('box3')">view</button>
+    </div>
+    <div class="box" id="box4">
+      <h3>Box 4</h3>
+      <p>Content for the fourth box goes here.</p>
+      <button onclick="changeContent('box4')">view</button>
+    </div>
+  </div>
+  <div id="template-card">
+    <!-- Rendered template content -->
+  </div>
+  </div>
+  <!-- <a href="/">Redirect</a> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
